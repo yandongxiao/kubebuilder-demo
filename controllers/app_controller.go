@@ -57,7 +57,28 @@ func (r *AppReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.R
 		fmt.Println(err)
 	}
 
+	// 即使每次调谐都更新 app（保持内容不变），也不会触发重复调谐。
+	//r.Update(ctx, copy)
+
+	// 只要指定的 Foo 是固定值，这种情况也不会导致死循环。
+	copy := app.DeepCopy()
+	copy.Spec.Foo = "dsa"
+	r.Update(ctx, copy)
+
 	fmt.Println(app.Spec.Foo)
+
+	// 直接更新 app.Status.Name 不会生效，需要调用 r.Status.Update 才可以。
+	//if app.Status.Name != "" {
+	//	fmt.Println("app.Status.Name is not empty", app.Status.Name)
+	//	app.Status.Name = app.Spec.Foo
+	//} else {
+	//	app.Status.Name = app.Spec.Foo
+	//}
+
+	// r.Update 是更新 Spec 的
+	if err := r.Status().Update(ctx, &app); err != nil {
+		fmt.Println(err)
+	}
 
 	return ctrl.Result{}, nil
 }
