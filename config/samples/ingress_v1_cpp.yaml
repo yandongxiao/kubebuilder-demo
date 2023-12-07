@@ -1,0 +1,12 @@
+apiVersion: ingress.example.com/v1
+kind: Cpp
+metadata:
+  labels:
+    app.kubernetes.io/name: cpp
+    app.kubernetes.io/instance: cpp-sample
+    app.kubernetes.io/part-of: kubebuilder-demo
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: kubebuilder-demo
+  name: cpp-sample
+spec:
+  # TODO(user): Add fields here
