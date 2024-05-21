@@ -6,6 +6,32 @@ metadata:
   name: manager-role
 rules:
 - apiGroups:
+  - example.com.example.com
+  resources:
+  - egresses
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - example.com.example.com
+  resources:
+  - egresses/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - example.com.example.com
+  resources:
+  - egresses/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
   - ingress.example.com
   resources:
   - apps
@@ -27,6 +53,32 @@ rules:
   - ingress.example.com
   resources:
   - apps/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - ingress.example.com
+  resources:
+  - cpps
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ingress.example.com
+  resources:
+  - cpps/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - ingress.example.com
+  resources:
+  - cpps/status
   verbs:
   - get
   - patch
